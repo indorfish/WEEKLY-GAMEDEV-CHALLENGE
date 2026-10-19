@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://bpeu5g7wb6j04"]
+
+[ext_resource type="Texture2D" uid="uid://dphh0dlede7kx" path="res://atlas sprites/green_checker.png" id="1_s3eng"]
+[ext_resource type="PackedScene" uid="uid://dexpdf5ps30l6" path="res://scenes/ball/ball.tscn" id="2_8p5ju"]
+[ext_resource type="Script" uid="uid://c2oxw2qammth8" path="res://scenes/paddle/paddle.gd" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://11vrwxna8pv6" path="res://scenes/paddle/components/controller_comp.gd" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://cm5rdt8hai0lp" path="res://atlas sprites/tile atlas.png" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://db3l8o2bsgowk" path="res://scenes/paddle/components/keyboard_comp.gd" id="5_tbgi4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbgi4"]
+atlas = ExtResource("4_tbgi4")
+region = Rect2(0, 0, 16, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6xl0"]
+size = Vector2(16, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tefeu"]
+atlas = ExtResource("4_tbgi4")
+region = Rect2(31.978401, -0.021249712, 16.012157, 48.03165)
+
+[node name="main" type="Node2D" unique_id=592322592]
+
+[node name="background stuff" type="Control" parent="." unique_id=1456554463]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="background stuff" unique_id=805674936]
+layout_mode = 0
+offset_left = -256.0
+offset_top = -128.0
+offset_right = 256.0
+offset_bottom = 128.0
+texture = ExtResource("1_s3eng")
+stretch_mode = 1
+
+[node name="Ball" parent="." unique_id=696802876 instance=ExtResource("2_8p5ju")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=504993738]
+
+[node name="test borders" type="StaticBody2D" parent="." unique_id=14367688]
+editor_description = "This is temporary!!!"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="test borders" unique_id=677402384]
+build_mode = 1
+polygon = PackedVector2Array(256, -128, -256, -128, -256, 128, 256, 128)
+
+[node name="paddle" type="CharacterBody2D" parent="." unique_id=1656051643 node_paths=PackedStringArray("input_component")]
+script = ExtResource("3_jyhfs")
+input_component = NodePath("keyboard_comp")
+metadata/_custom_type_script = "uid://c2oxw2qammth8"
+
+[node name="Sprite2D" type="Sprite2D" parent="paddle" unique_id=1069287544]
+position = Vector2(-232, -24)
+texture = SubResource("AtlasTexture_tbgi4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="paddle" unique_id=484717415]
+position = Vector2(-232, -24)
+shape = SubResource("RectangleShape2D_o6xl0")
+
+[node name="keyboard_comp" type="Node" parent="paddle" unique_id=879227062 node_paths=PackedStringArray("parent_node")]
+script = ExtResource("5_tbgi4")
+parent_node = NodePath("..")
+
+[node name="paddle2" type="CharacterBody2D" parent="." unique_id=804157664 node_paths=PackedStringArray("input_component")]
+script = ExtResource("3_jyhfs")
+input_component = NodePath("controller comp")
+metadata/_custom_type_script = "uid://c2oxw2qammth8"
+
+[node name="Sprite2D" type="Sprite2D" parent="paddle2" unique_id=1998269520]
+position = Vector2(232, -24)
+texture = SubResource("AtlasTexture_tefeu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="paddle2" unique_id=422778807]
+position = Vector2(232, -24)
+shape = SubResource("RectangleShape2D_o6xl0")
+
+[node name="controller comp" type="Node" parent="paddle2" unique_id=1823021442]
+script = ExtResource("3_sugp2")

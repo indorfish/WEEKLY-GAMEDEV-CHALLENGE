@@ -1,15 +1,12 @@
+class_name paddle
 extends CharacterBody2D
 
-
+@export var input_component = Node
 const SPEED = 300.0
 
 
 func _physics_process(delta):
-	#Input stuff
-	if Input.is_action_pressed("up"):
-		velocity.y = -SPEED
-	if Input.is_action_pressed("down"):
-		velocity.y = SPEED
+	input_component.start()
 	move_and_slide()
 	velocity = Vector2(0,0)
 	

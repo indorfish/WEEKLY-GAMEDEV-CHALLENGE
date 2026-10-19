@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfygs36bkgx8u"]
+[gd_scene format=3 uid="uid://bfygs36bkgx8u"]
 
-[ext_resource type="Script" path="res://scenes/paddle/paddle.gd" id="1_wpyi2"]
+[ext_resource type="Script" uid="uid://c2oxw2qammth8" path="res://scenes/paddle/paddle.gd" id="1_wpyi2"]
 [ext_resource type="Texture2D" uid="uid://cm5rdt8hai0lp" path="res://atlas sprites/tile atlas.png" id="2_6r5ng"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x8pij"]
@@ -10,11 +10,12 @@ region = Rect2(0, 0, 16.3493, 48.2684)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_md8wb"]
 size = Vector2(16, 48)
 
-[node name="Paddle" type="CharacterBody2D"]
+[node name="Paddle" type="CharacterBody2D" unique_id=1337684362 node_paths=PackedStringArray("input_component")]
 script = ExtResource("1_wpyi2")
+input_component = NodePath("")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=300894456]
 texture = SubResource("AtlasTexture_x8pij")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=363677325]
 shape = SubResource("RectangleShape2D_md8wb")
