@@ -1,2 +1,2 @@
 # WEEKLY-GAMEDEV-CHALLENGE
-Folder for the code for the Weekdly Game Dev challenge
+Folder for the code for the Weekly Game Dev challenge
