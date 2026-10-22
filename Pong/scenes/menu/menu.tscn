@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://d0jidcey4aqgk"]
+
+[ext_resource type="PackedScene" uid="uid://w867s6umn3tg" path="res://scenes/menu/menu_manager.tscn" id="1_y1o0p"]
+[ext_resource type="Texture2D" uid="uid://cavpinkkxot3x" path="res://scenes/menu/sprites/start.png" id="2_r8yej"]
+[ext_resource type="Script" uid="uid://c5mwef330lvim" path="res://scenes/menu/menu_item.gd" id="3_3y2rt"]
+[ext_resource type="Texture2D" uid="uid://c37thvhjrfg48" path="res://scenes/menu/sprites/credits.png" id="4_t0a87"]
+[ext_resource type="Texture2D" uid="uid://cratmfpj5cor1" path="res://scenes/menu/sprites/exit.png" id="5_qo0fc"]
+
+[node name="menu" type="Node2D" unique_id=524573183]
+
+[node name="menu_manager" parent="." unique_id=669413660 instance=ExtResource("1_y1o0p")]
+position = Vector2(32, 24)
+
+[node name="menu_item" type="Sprite2D" parent="menu_manager" unique_id=411431462 groups=["menu_item"]]
+position = Vector2(-40, -40)
+texture = ExtResource("2_r8yej")
+script = ExtResource("3_3y2rt")
+metadata/_custom_type_script = "uid://c5mwef330lvim"
+
+[node name="menu_item2" type="Sprite2D" parent="menu_manager" unique_id=1001336784 groups=["menu_item"]]
+position = Vector2(-40, 16)
+texture = ExtResource("4_t0a87")
+script = ExtResource("3_3y2rt")
+metadata/_custom_type_script = "uid://c5mwef330lvim"
+
+[node name="menu_item3" type="Sprite2D" parent="menu_manager" unique_id=1487292184]
+position = Vector2(-40, 64)
+texture = ExtResource("5_qo0fc")
+script = ExtResource("3_3y2rt")
+metadata/_custom_type_script = "uid://c5mwef330lvim"

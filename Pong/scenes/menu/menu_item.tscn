@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://beskxi3atgua7"]
+
+[ext_resource type="Script" uid="uid://c5mwef330lvim" path="res://scenes/menu/menu_item.gd" id="2_lx7b7"]
+
+[node name="menu_item" type="Sprite2D" unique_id=46207707 groups=["menu_item"]]
+script = ExtResource("2_lx7b7")

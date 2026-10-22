@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 	pass
 
 func start():
-	if Input.is_action_pressed("up"):
+	if Input.is_action_pressed("up_p1"):
 		parent_node.velocity.y = -parent_node.SPEED
-	if Input.is_action_pressed("down"):
+	if Input.is_action_pressed("down_p1"):
 		parent_node.velocity.y = parent_node.SPEED

@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://dk5q7ocr0j6uo"]
+
+[ext_resource type="Texture2D" uid="uid://nxwtp25c7612" path="res://atlas sprites/white_bg.png" id="1_2daj4"]
+[ext_resource type="Script" uid="uid://dm5gm2w2au6sd" path="res://scenes/levels/two_player_level.gd" id="1_m45bs"]
+[ext_resource type="Script" uid="uid://cx70bswos3pj3" path="res://scenes/levels/background_stuff.gd" id="2_08mnp"]
+[ext_resource type="PackedScene" uid="uid://dexpdf5ps30l6" path="res://scenes/ball/ball.tscn" id="2_m45bs"]
+[ext_resource type="Script" uid="uid://c2oxw2qammth8" path="res://scenes/paddle/paddle.gd" id="3_08mnp"]
+[ext_resource type="Texture2D" uid="uid://cm5rdt8hai0lp" path="res://atlas sprites/tile atlas.png" id="4_l48v5"]
+[ext_resource type="Script" uid="uid://db3l8o2bsgowk" path="res://scenes/paddle/components/keyboard_comp.gd" id="5_xd4n7"]
+[ext_resource type="Script" uid="uid://11vrwxna8pv6" path="res://scenes/paddle/components/controller_comp.gd" id="6_xnq1o"]
+[ext_resource type="Texture2D" uid="uid://ce4onsbvg7l0c" path="res://scenes/ball/Ball.png" id="8_l48v5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2daj4"]
+size = Vector2(18, 258)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m45bs"]
+size = Vector2(20, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nws4y"]
+atlas = ExtResource("4_l48v5")
+region = Rect2(0, 0, 16, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm34t"]
+size = Vector2(16, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snvlt"]
+atlas = ExtResource("4_l48v5")
+region = Rect2(31.978401, -0.021249712, 16.012157, 48.03165)
+
+[node name="two_player_level" type="Node2D" unique_id=773827726]
+script = ExtResource("1_m45bs")
+
+[node name="background stuff" type="Control" parent="." unique_id=269345020]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -256.0
+offset_top = -128.0
+offset_right = 256.0
+offset_bottom = 128.0
+script = ExtResource("2_08mnp")
+
+[node name="TextureRect" type="TextureRect" parent="background stuff" unique_id=1052324071]
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 256.0
+texture = ExtResource("1_2daj4")
+stretch_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="background stuff" unique_id=1368669322]
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="background stuff/HBoxContainer" unique_id=820111193]
+layout_mode = 2
+theme_override_constants/margin_left = 56
+theme_override_constants/margin_right = 32
+
+[node name="p1_scores_label" type="Label" parent="background stuff/HBoxContainer/MarginContainer" unique_id=563638185]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
+
+[node name="MarginContainer2" type="MarginContainer" parent="background stuff/HBoxContainer" unique_id=1095366211]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 56
+
+[node name="p2_points_label" type="Label" parent="background stuff/HBoxContainer/MarginContainer2" unique_id=747725190]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
+
+[node name="Ball" parent="." unique_id=2009629514 instance=ExtResource("2_m45bs")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1197114035]
+
+[node name="test borders" type="StaticBody2D" parent="." unique_id=1716154164]
+editor_description = "This is temporary!!!"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="test borders" unique_id=495972108]
+build_mode = 1
+polygon = PackedVector2Array(256, -128, -256, -128, -256, 128, 256, 128)
+
+[node name="p1 collider" type="Area2D" parent="." unique_id=1864462873]
+position = Vector2(1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="p1 collider" unique_id=1416198537]
+position = Vector2(-264, -1)
+shape = SubResource("RectangleShape2D_2daj4")
+
+[node name="p2 collider" type="Area2D" parent="." unique_id=368233347]
+position = Vector2(-1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="p2 collider" unique_id=1684145649]
+position = Vector2(265, 0)
+shape = SubResource("RectangleShape2D_m45bs")
+
+[node name="paddle" type="CharacterBody2D" parent="." unique_id=294732606 node_paths=PackedStringArray("fake_ball", "input_component")]
+script = ExtResource("3_08mnp")
+fake_ball = NodePath("fake_ball")
+input_component = NodePath("keyboard_comp")
+paddle_name = "player_1"
+metadata/_custom_type_script = "uid://c2oxw2qammth8"
+
+[node name="Sprite2D" type="Sprite2D" parent="paddle" unique_id=896118434]
+position = Vector2(-232, -24)
+texture = SubResource("AtlasTexture_nws4y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="paddle" unique_id=1758538040]
+position = Vector2(-232, -24)
+shape = SubResource("RectangleShape2D_wm34t")
+
+[node name="keyboard_comp" type="Node" parent="paddle" unique_id=1576103319 node_paths=PackedStringArray("parent_node")]
+script = ExtResource("5_xd4n7")
+parent_node = NodePath("..")
+
+[node name="fake_ball" type="Sprite2D" parent="paddle" unique_id=970837473]
+position = Vector2(-219, -24)
+scale = Vector2(0.75, 1)
+texture = ExtResource("8_l48v5")
+
+[node name="paddle2" type="CharacterBody2D" parent="." unique_id=1766826523 node_paths=PackedStringArray("fake_ball", "input_component")]
+position = Vector2(0, -44)
+script = ExtResource("3_08mnp")
+fake_ball = NodePath("fake_ball")
+input_component = NodePath("controller comp")
+paddle_name = "player_2"
+metadata/_custom_type_script = "uid://c2oxw2qammth8"
+
+[node name="Sprite2D" type="Sprite2D" parent="paddle2" unique_id=98309380]
+position = Vector2(232, -24)
+texture = SubResource("AtlasTexture_snvlt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="paddle2" unique_id=11170064]
+position = Vector2(232, -24)
+shape = SubResource("RectangleShape2D_wm34t")
+
+[node name="controller comp" type="Node" parent="paddle2" unique_id=1037199051 node_paths=PackedStringArray("parent_node")]
+script = ExtResource("6_xnq1o")
+parent_node = NodePath("..")
+
+[node name="fake_ball" type="Sprite2D" parent="paddle2" unique_id=1878621144]
+position = Vector2(220, -24)
+scale = Vector2(0.75, 1)
+texture = ExtResource("8_l48v5")
+
+[node name="debug_shi" type="Label" parent="." unique_id=1915287976 groups=["ball"]]
+offset_left = -64.0
+offset_top = 72.0
+offset_right = 72.0
+offset_bottom = 95.0
+theme_override_colors/font_color = Color(0.3470683, 0.3470683, 0.3470683, 1)
+
+[connection signal="body_entered" from="p1 collider" to="." method="_on_p_1_collider_body_entered"]
+[connection signal="body_entered" from="p2 collider" to="." method="_on_p_2_collider_body_entered"]

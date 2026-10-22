@@ -1,3 +1,5 @@
-10/19/2026 - Added two player (both humans) by making the paddle a class and instancing them with some minor inheritance magic to keep it running. See changes.txt.
+19/10/2026 - Added two player (both humans) by making the paddle a class and instancing them with some minor inheritance magic to keep it running. See changes.txt.
 -One player uses keyboard (D-pad) and the other joystick. See components in Paddle file.
 -Changed main background texture.
+
+20/10/2026 - Created a menu and splitted the game across various scences, accessible only by the WIP menu. TGBGT
