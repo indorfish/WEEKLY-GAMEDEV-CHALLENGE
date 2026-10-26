@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://nxwtp25c7612" path="res://atlas sprites/white_bg.png" id="1_2daj4"]
 [ext_resource type="Script" uid="uid://dm5gm2w2au6sd" path="res://scenes/levels/two_player_level.gd" id="1_m45bs"]
 [ext_resource type="Script" uid="uid://cx70bswos3pj3" path="res://scenes/levels/background_stuff.gd" id="2_08mnp"]
-[ext_resource type="PackedScene" uid="uid://dexpdf5ps30l6" path="res://scenes/ball/ball.tscn" id="2_m45bs"]
 [ext_resource type="Script" uid="uid://c2oxw2qammth8" path="res://scenes/paddle/paddle.gd" id="3_08mnp"]
 [ext_resource type="Texture2D" uid="uid://cm5rdt8hai0lp" path="res://atlas sprites/tile atlas.png" id="4_l48v5"]
 [ext_resource type="Script" uid="uid://db3l8o2bsgowk" path="res://scenes/paddle/components/keyboard_comp.gd" id="5_xd4n7"]
@@ -73,8 +72,6 @@ theme_override_constants/margin_right = 56
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1"
-
-[node name="Ball" parent="." unique_id=2009629514 instance=ExtResource("2_m45bs")]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1197114035]
 

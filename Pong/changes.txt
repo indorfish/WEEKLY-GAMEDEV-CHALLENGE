@@ -3,3 +3,4 @@
 -Changed main background texture.
 
 20/10/2026 - Created a menu and splitted the game across various scences, accessible only by the WIP menu. TGBGT
+22/10/2026 - "I finished the two player pong level. Please check it out. I am also working on a menu.

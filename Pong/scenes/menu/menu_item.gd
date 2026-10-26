@@ -7,7 +7,7 @@ func _ready() -> void:
 	pass
 
 func wobble():
-	skew =+ sin(n)/2
+	rotation =+ sin(n)/2
 	n += 0.1
 
 

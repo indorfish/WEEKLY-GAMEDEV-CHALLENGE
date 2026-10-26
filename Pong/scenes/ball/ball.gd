@@ -13,3 +13,4 @@ func _physics_process(delta):
 		velocity = velocity.bounce(collision.get_normal())
 		velocity.x *= acceleration.x
 		velocity.y *= acceleration.y
+		
