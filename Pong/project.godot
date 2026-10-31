@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Weekly-gamedev-challenge"
 run/main_scene="uid://dk5q7ocr0j6uo"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://pong/icon.svg"
 
 [display]
 
@@ -25,10 +25,17 @@ window/size/viewport_width=512
 window/size/viewport_height=256
 window/stretch/mode="canvas_items"
 
+[editor]
+
+movie_writer/video_quality=1.0
+movie_writer/movie_file="C:/Users/HP/Documents/game projects/WEEKLY-GAMEDEV-CHALLENGE/Pong/recordings/Recording.avi"
+
 [global_group]
 
 menu_item="The menu item"
 ball=""
+player_1=""
+player_2=""
 
 [input]
 

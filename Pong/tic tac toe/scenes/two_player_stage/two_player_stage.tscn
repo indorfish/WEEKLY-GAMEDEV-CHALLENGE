@@ -1,0 +1,40 @@
+[gd_scene format=4 uid="uid://bdfy647q117ts"]
+
+[ext_resource type="Texture2D" uid="uid://catp85ufnyx2i" path="res://tic tac toe/atlas sprites/ttt tiles.png" id="1_3i45m"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wx64s"]
+texture = ExtResource("1_3i45m")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tcsvp"]
+sources/0 = SubResource("TileSetAtlasSource_wx64s")
+
+[node name="two_player_stage" type="Node2D" unique_id=279877659]
+
+[node name="x and o layer" type="TileMapLayer" parent="." unique_id=496897365]
+z_index = 1
+position = Vector2(-25, -24)
+tile_map_data = PackedByteArray("AAAAAAAAAAAFAAAAAAABAAEAAAAFAAAAAAACAAIAAAAFAAAAAAA=")
+tile_set = SubResource("TileSet_tcsvp")
+
+[node name="base layer" type="TileMapLayer" parent="." unique_id=474049248]
+position = Vector2(-25, -24)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAAAAAQAAAAAAAEAAAABAAQAAAABAAEAAAACAAQAAAABAAEAAAADAAQAAAADAAEAAAAAAP7/AAAEAAEAAAABAP7/AAAFAAEAAAACAP7/AAAGAAEAAAADAP7/AAAHAAEAAAA=")
+tile_set = SubResource("TileSet_tcsvp")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=155812284]
+zoom = Vector2(2, 2)

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dexpdf5ps30l6"]
+
+[ext_resource type="Script" uid="uid://bgw7b67kdwooj" path="res://pong/scenes/ball/ball.gd" id="1_4tpi1"]
+[ext_resource type="Texture2D" uid="uid://ce4onsbvg7l0c" path="res://pong/scenes/ball/Ball.png" id="1_dy71f"]
+[ext_resource type="AudioStream" uid="uid://w1lhvf85qdhs" path="res://pong/sfx/ping.mp3" id="3_xotqv"]
+[ext_resource type="AudioStream" uid="uid://bvcj8wpwusyne" path="res://pong/sfx/pong.mp3" id="4_jbgth"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0q6do"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xotqv"]
+radius = 11.0
+
+[node name="Ball" type="CharacterBody2D" unique_id=1031388390 groups=["ball"]]
+script = ExtResource("1_4tpi1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=841872832]
+texture = ExtResource("1_dy71f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2054126833]
+shape = SubResource("CircleShape2D_0q6do")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=693474256]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=644440453]
+shape = SubResource("CircleShape2D_xotqv")
+debug_color = Color(0.78865826, 0.38705626, 0.5052284, 0.41960785)
+
+[node name="Ping" type="AudioStreamPlayer" parent="." unique_id=325292013]
+stream = ExtResource("3_xotqv")
+
+[node name="Pong" type="AudioStreamPlayer" parent="." unique_id=308519852]
+stream = ExtResource("4_jbgth")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
