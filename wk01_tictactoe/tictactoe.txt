@@ -1,0 +1,124 @@
+
+TIC-TAC-TOE
+
+Also known as "X and O" or "Crosses and Noughts".
+
+
+TTT is a two-player game. It is "adversarial", and play is quasi-symmetric. 
+"Adversarial" in this context means zero-sum - both players cannot win at the same time.
+"Symmetric" in this context means that either player can rely on the same strategy for winning; the players differ only in which symbol they are assigned. However, TTT is not purely symmetric because the player who plays first has an advantage if they play optimally (and player 2 plays like a dummy).
+Nonetheless, the reason I mention this "symmetry" is that you do not need to design separate classes for Player 1 and Player 2. You can design a single "Player" class and instantiate one for player 1 and another for player 2.
+
+
+________________________________________________________________________________
+A MODEL OF TIC-TAC-TOE
+The Board:
+-   Ordinary TTT consists of a 3-by-3 board, a 2D array of cells.
+Any given cell can be in any of three states:
+    -   possessing the "empty" symbol (i.e. having nothing inside)
+    -   possessing the "X" symbol
+    -   possessing the "O" symbol
+
+State update rules:
+-   Without loss of generality, Player 1 (P1) is assigned the X symbol and Player 2 (P2) is assigned the O symbol. P1 is given the first turn to "play".
+"Play" in the context means choosing an empty cell and marking it with your symbol. Turns cannot be skipped - when it's a player's turn, if play is possible then the player must mark an empty cell with their symbol for the game to proceed.
+
+-   At t0 (the start of the game), every cell is empty and currentPlayer is initialized as P1 (X) without loss of generality.
+
+-   At tn (the nth turn):
+    Assume there is at least one empty cell.
+    -   The currentPlayer selects an empty cell and marks it with their symbol
+    -   if the resulting board state is in a winning state, identify the winner and end the game
+        (prove whether the winner is the currentPlayer)
+    -   Else if the resulting board state has no more empty cells, declare a draw and end the game
+    -   Else switch the currentPlayer variable to the other player and move to the next turn.
+
+
+Ending the game:
+-   Either P1 wins or P2 wins or there is a draw. The game ends in a victory or a draw.
+-   What does it mean for a player to win?
+If there exists a row, column or diagonal consisting of three of the same non-empty symbol (X or O) adjacent to each other then the player who owns that symbol may be declared the winner.
+(We don't want to get too formal here but can you prove that the state update rules guarantee at most one winner?)
+Thus, some symbol-checking or pattern-matching subsystem observes the board state at near the end of every turn, before updating turn counter and currentPlayer, and checks if there is some row, column or diagonal consisting of three of the same symbol.
+
+-   What is a draw?
+A draw is guaranteed when no winner can exist. To keep things simple, we declare a draw when there are no more empty cells and there is no winner.
+
+
+Pattern-matching:
+-   The game needs to be able to check for three of the same non-empty symbol in a row, column or diagonal.
+A naive way to do this is to scan each row, column and diagonal until one such pattern is found.
+First allocate a 3-element array named 'currentPtn' to store the detected pattern: _ _ _
+Use whichever approach you can find or think of, but the condition is basically:
+    (currentPtn[0] != EMPTY) AND (currentPtn[0] == currentPtn[1])
+    AND (currentPtn[0] == currentPtn[2])
+
+
+________________________________________________________________________
+A VIEW OF TIC-TAC-TOE
+Don't try to be a smartass. Everybody plays tic-tac-toe on a rectangular grid.
+Focus on making the X and O look very distinct from each other.
+Here, you can practice your graphic design or frontend skills and make the game look and sound as pretty as you want.
+One idea is for a "ghost" version of the player's symbol to hover over the board then when they click, a solid version is drawn on that cell.
+You can even use notebook/paper-like graphics or even two CGI players writing the X's and O's manually. 
+You can even remove visuals entirely and just have a speech synthesis engine read out the current board state - maybe like a WWE commentator.
+"AND THE NOUGHTMASTER PUNCHES A HOLE IN THE BOARD AT CELL (0,2)! OH, THE AGONY! HOW WILL RICK CROSS HANDLE SUCH A DEVASTATING MOVE?!!!"
+The logic of your game can be separated from how it is presented! Be creative.
+You can go the opposite extreme and just use ASCII to display the game state. Your pick.
+
+
+________________________________________________________________________
+CONTROLLING TIC-TAC-TOE
+Practically, most players will play games with typical peripherals - keyboard, mouse, etc.
+But conceptually, how much memory is sufficient for a Tic-Tac-Toe controller?
+Can we play TTT with a single push button for example?
+
+The only actions available to a Player *for the purposes of the game* are
+-   Select a cell. Since there are nine cells maximum we can conceptualize the cellID as being a 4-bit integer (seven integers unused)
+-   Place their mark. Players must place their mark to progress the game.
+In fact, Players do not explicitly need to tell the system what their mark is - this is assigned at the start of the game and remains unchanged. Hence, we can view selecting a cell as being equivalent to selecting a cell AND choosing to place a mark there.
+
+Based on this, it seems that a 4-bit controller is sufficient for a Player who wishes to play 3-by-3 tic-tac-toe. All the player has to do is submit the cell index they want to play at. If it is a valid cell (i.e. empty) then the game progresses. Else, it waits for the player to pick a valid cell.
+    Player 1 > 3
+    Player 2 > 8
+    Player 1 > 1
+    Player 2 > 6
+This is a very alien way of playing tic-tac-toe, but it's here just in case you want to write a version that runs on a toaster or such.
+More accurately, the computer only needs 4 bits to fully represent player input. Thus, however complicated the controller is, it is sufficient for the computer to represent player input using only four bits. The hardware controller itself may transmit data that's more than 4 bits in size.
+
+
+
+=================================================================
+MISC NOTES
+-   Yes, Tic-Tac-Toe is kind of boring but the Legend of Zelda was not built in one day.
+Start by implementing small games first.
+
+-   Some possible improvements:
+    -   Write an API for your game and play against an LLM
+    -   Write deterministic AI that can predict the game two steps in advance and beat you
+    -   Create a Mega-Tic-Tac-Toe board where each cell is itself a Tic-Tac-Toe game marked by
+        the winner of that game. Draws lead to empty cells.
+    -   Practice your multiplayer and network management skills by making this a multiplayer or
+        networked game with tournaments, etc.
+    -   Build a points and scoring system for the game
+
+
+
+
+
+=================================================================
+NERD STUFF (TBA)
+-   Generalization of TTT by board size, finding more efficient pattern-matching techniques
+-   Optimal play strategies
+-   Memory bounds for n-by-n TTT. In short, can we predict the maximum memory usage?
+I think TTT can be implemented with a Finite State Machine. This means we can probably write a tiny bootloader versin of TTT. But who cares?
+
+
+
+
+
+
+
+    
+    
+    

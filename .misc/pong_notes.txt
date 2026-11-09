@@ -1,0 +1,129 @@
+
+PONG NOTES
+
+1. Try out Model-View-Controller.
+Model the objects in Pong, but as part of the model's attributes, define "opaque" rendering methods and subroutines.
+For example, we just want to be able to call
+    `paddle.draw()`
+
+
+STEP 0: MODELING THE DOMAIN, UNDERSTANDING PONG
+
+Pong is a two-player game.
+Objective:
+-   Play is symmetric between both players. 
+This means that Pong feels the same whether you're player 1 or player 2.
+Either player's goal is to knock the paddle into the opponent's "space" i.e. send the ball flying past the player's paddle.
+
+Win condition:
+-   For our game, the first player to reach a score of 4 wins. Alternative approach is to play a timed game, but that's an update for later.
+
+Initialization:
+-   For our game, the ball will start at the center of the screen and fire randomly in either of two directions (line a cone of vision crossing through both paddles)
+
+Physics:
+-   The "physics" of Pong refers to the dynamics of how (certain) objects within the game world behave. We don't care about the dynamics of the score board or colors, we're interested in the collision physics of the paddles, the ball and the world.
+What type of collision detection should we use?
+The simplest is to just use AABB's (Axis-aligned bounding boxes). To facilitate this (for correctness), the shapes of the paddles, the ball and the world will all have to be rectangular and axis-aligned.
+The ball will be a very small square and the paddles will be narrow rectangles. The world itself will be rectangular. (Hint: what does this suggest about the objects we need?).
+AABB collisions are straightforward. To detect if two rectangles have intersected:
+    -   project the bounds of rectangle R1 and rectangle R2 onto either axis (i.e. look at the 
+    x and y coordinates).
+    -   If either of these intervals intersect, then the rectangles intersect.
+To avoid "phasing" behavior, check for *future* intersections. This alone is insufficient, but if we keep our velocity small enough it's fine. We'll be more formal about it later.
+
+-   Physics of motion (ball): How does the ball move?
+Ball follows the law of reflection - upon collision with a paddle, the ball's velocity is reflected along the paddle's normal axis. Angle of incidence equals angle of refraction.
+The problem with this is that it can lead to a situation where the ball keeps moving between the paddles in a horizontal line. To avoid this, add a bit of noise to the reflected velocity.
+For the demo, it's sufficient for the ball to move at constant speed.
+
+-   Physics of motion (paddles): How do the paddles move?
+The paddles move only when a player tells them to move. But what does the player control? Their position? Their velocity?
+In classic pong, the paddles move at constant velocity up or down while the player holds down the respective control. The player thus technically controls the velocity:
+    paddle.velocity = (buttonPressed) ? 
+                                   0  :  controlValue * velocity;
+The controlValue can simply be -1 or 1. How you handle this is up to you, this just shows the broad idea of the thing.
+
+-   More on physics:
+No explicit friction is modelled between colliding objects. Also, the objects are rigid and do not deform.
+
+
+
+Objects:
+-   Rectangle
+    -   bundle with AABB collision logic for a simple demo.
+    -   two of these rectangles will be placed at the top and bottom of the screen so that the ball can bounce off something.
+-   CollisionEngine:
+    -   handles collision logic for all objects. Detects collisions and enforces response to collision. This way, the objects themselves don't need to worry about what exactly they have collided with.
+-   Paddle
+-   Ball
+-   World
+-   Player
+-   Scoreboard
+-   Game
+    -   a "container" class which holds all the relevant data and objects, and manages their behavior.
+
+State machines:
+1. Gameloop state machine:
+For the timed game:
+    -   while time < Timeout {
+            game.stateUpdate(LOOP);
+        } game.stateUpdate(FINISH);
+For the scored game:
+    -   while (max(player1.score, player2.score) < 4) {
+            game.stateUpdate(LOOP);
+        } game.stateUpdate(FINISH);
+Then in either case, we declare a winner or a tie. Is a tie possible?
+
+
+Controls:
+-   Controls for the paddle: A 2-bit controller is sufficient. 
+This is because the possible controller states are NULL, UP, DOWN (three states). `NULL` means the player is not currently pressing a control. `UP` means "move the paddle up at the fixed velocity". `DOWN` means "move the paddle down at the fixed velocity".
+There is one unused state.
+
+-   Controls for the interface: This depends on the surrounding application.
+But the bare minimum is to be able to select an option to play, so we assign `SELECT` to the unused state. Hence, a 2-bit controller is sufficient for a bare-bones Pong game.
+If the game expands, more control (e.g. keyboard or mouse input) will be needed.
+
+
+Graphics and Rendering:
+-   To use sprites or to use vector graphics? That is the question.
+This decision can influence both performance and aesthetics.
+    Sprites: you draw bitmaps (or whichever appropriate format) for everything that will be rendered. The paddle, the background, the foreground, the world, the ball, the scoreboard, text font etc.
+During the game's run you load them into memory and the computer renders them through (often simple) transformations e.g. translation, scaling and maybe rotation.
+This is often efficient for computers especially if they have large enough framebuffers (i.e. video memory). But you'll have to draw a lot of sprites. Lucky for you, there are free assets online - pong doesn't require much visually.
+At worst you need sprites for the font, rectangles for each paddle and the world.
+    Vectors: the computer algorithmically draws the objects to be rendered.
+If the objects are simple enough then this can be quite efficient. But let's just say that this doesn't really scale. You will have to handle geometric rendering problems such as fills, anti-aliasing, interpolation, etc.
+You can try it though if you want a retro aesthetic.
+
+Audio:
+-   I think at the bare minimum you need an audio clip to play whenever the ball collides with something.
+For bonus points, you want different types of audio to play depending on what the ball collides with, and you want a clip for when a player scores - maybe a unique clip for each player.
+You can either load pre-recorded/pre-rendered audio from memory, or algorithmically construct the audio on the fly.
+
+AI:
+-   You can implement basic AI logic. Right?
+
+
+===========================================================================
+
+BUNDLING IT INTO A PROPER APPLICATION:
+-   Pong is a somewhat boring game. There isn't really much worth saving to disk.
+But a decent idea is to first build the core subsystems then build an application wrapped around these subsystems.
+This application can manage things like user data (username, best score, etc), tournaments, settings and configuration, etc.
+Also, networking - can two players play the game over a network?
+Some people make the mistake of first worrying about how to save the game - that's not a primary concern usually.
+
+
+-   If you care, you may want to write an API for your Pong game.
+AN API FOR A PONG GAME? HOW ABSURD!
+Yes, it's silly but look at the bigger picture - this is practice for greater things to come!
+By writing an API for your game, with methods to control, set and query the state of objects in the game and the game itself, you can utilize your game in ways beyond imagination.
+For example, you can give the API to two neural networks so that they play each other and discover the best technique for playing Pong.
+You can play the game with Claude as your opponent (if you have enough money for tokens), etc.
+But conquer the basic stuff first.
+
+
+
+
