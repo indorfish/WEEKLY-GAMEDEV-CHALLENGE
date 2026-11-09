@@ -1,0 +1,101 @@
+
+The current game roster is kinda wack.
+
+We need thirty games for the next thirty weeks. How to order them is still an open problem.
+It's difficult because I want the games to progress from easy to complex, and to explore a broad variety of genres and styles.
+However, there are simply too many ways to classify games. The schedule is mostly vibes-based.
+
+-   Tic-Tac-Toe
+-   Whack-a-Mole
+-   Memory Match
+-   Match-3
+-   Checkers
+-   Tetris
+
+-   Idle Clicker
+
+-   Pong
+-   Snake Xenzia
+-   PacMan (or other Maze game)
+-   Flappy Bird
+-   Duck Hunt
+
+-   Breakout
+-   Space Invaders
+-   Tower Defense
+
+-   Astroblaster
+-   Top-Down Racer
+-   Dave (or other action platformer)
+
+-   Text-Based Adventure
+-   Dungeon Crawler
+-   RPG
+
+-   First-Person Shooter
+    -   Raycaster variant e.g. Classic DOOM
+    -   3D variant e.g. modern DOOM
+
+-   Resource Management
+
+
+==================================================================
+ATTEMPTING A TAXONOMY OF GAMES
+
+CLASSIFICATION BY PHYSICS
+-   No (explicit) physics
+-   Discrete (Cellular Automata)
+-   2D Rigid Body
+-   2D Soft Body
+-   3D Rigid Body
+-   3D Soft Body
+-   Ragdoll
+
+CLASSIFICATION BY PLAYER COUNT
+-   Single-player
+-   Two-player
+-   Multiplayer
+
+CLASSIFICATION BY GAME STRATEGY
+-   Open/Exploration (there's nothing to 'win', just explore and interact)
+-   Puzzle (solve a problem under constraints). Is every puzzle game simply a search problem?
+    The game model exists in state A and it is your job to find a "path" (sequence of transforms)
+    that puts the game in state B.
+-   Zero-Sum, Adversarial (Only one player can win, and they must cause the other player(s)
+    to lose e.g. Tekken or other fighting games)
+-   Zero-Sum, Competitive (Only one player can win, but players do not necessarily interact directly; they compete for a finite resource for example Formula One with a tie-breaker)
+-   N-player, Zero-sum
+-   Team games
+-   Tournament games
+-   Resource management?
+
+CLASSIFICATION BY CHANCE
+-   Deterministic games
+    -   Same input always gives same output
+-   Non-Deterministic games
+    -   Games of skill (you can rig the dice)
+    -   Games of pure luck (e.g. Roulette)
+
+CLASSIFICATION BY COMPUTATIONAL COMPLEXITY?
+-   Memory complexity
+    -   Finite State Games: there is an upper bound for memory usage i.e. we know that this game
+        will never use more than 30kB of memory during runtime, because the game has only finitely
+        many states.
+    -   State-unbounded Games: games which can exist in arbitrarily-many states
+
+CLASSIFICATION BY AESTHETICS
+Aesthetics is an important part of the gaming experience. Unless you're an LLM, you probably do not interact with games via an API.
+There are visual aesthetics and genre/stylistic aesthetics.
+This taxonomy is bound to be the loosest.
+-   Metroidvania
+-   Voxel-like (Minecraft clones)
+-   Platformer
+-   RPG
+-   
+
+
+
+
+
+
+

@@ -88,6 +88,24 @@ More accurately, the computer only needs 4 bits to fully represent player input.
 
 
 
+_____________________________________________________
+OBJECT-ORIENTED APPROACH TO DESIGNING TIC-TAC-TOE
+
+Don't overthink in the initial stages of design. Do an MVP first then refactor later.
+In fact, you do not need to initially separate model, view and control - just have something a player can interact with.
+
+Entities
+-   Board: can be represented as a 3-by-3 grid of cells. Any cell contains either the EMPTY symbol, or X or O. Treating EMPTY as a special type of symbol often makes things easier to code.
+What attributes should the board have? If you feel like it, you can generalize the size. But it's best to stick with just 3. Other attributes may relate to how cells are indexed (row vs column major, etc)
+
+-   Player: a Player has a symbol assigned to them. Also a score if you want.
+
+-   stateChecker: a class or set of subroutines for checking the state of the Board.
+
+
+
+
+
 =================================================================
 MISC NOTES
 -   Yes, Tic-Tac-Toe is kind of boring but the Legend of Zelda was not built in one day.
