@@ -1,0 +1,103 @@
+_____________________________________________________
+OBJECT-ORIENTED APPROACH TO DESIGNING TIC-TAC-TOE
+
+Don't overthink in the initial stages of design. Do an MVP first then refactor later.
+In fact, you do not need to initially separate model, view and control - just have something a player can interact with.
+
+
+Designing from the Player's point of view:
+A Player interacts with the game progam flow itself (e.g. restarting, pausing) and with the board obviously.
+The Game presents the Board to the Player (upon the player's implicit request by choosing to start the game). The Game also presents the visuals and audio you designed, as you designed them.
+The Player interacts with the Board (and the program itself) using the Controller.
+We have to distinguish the game (of tictactoe) from the game (the software implementing tictactoe).
+To emphasize this distinction, we call the former TicTacToe and the latter GameProgram.
+
+TicTacToe:
+an abstract model of the game
+-   Attributes:
+    -   Symbols (null, X, O)
+    -   3-by-3 Board with cells
+    -   win state: PLAYING, WIN, DRAW
+-   Methods:
+    -   updateBoard(cell, symbol) // implements state update rules
+    -   validateWin(board)        // checks for win or playing or draw condition
+    -   reset()                   // resets to default values
+
+Board:
+the board on which the symbols are written. Can just be a 3-by-3 grid, frankly.
+For such a small game we can directly implement the board in the TicTacToe class.
+
+
+Player:
+represents an entity that interacts freely with the program.
+-   Attributes:
+    -   Symbol
+    -   Controller
+    -   Score // or win state e.g. "WINNER" vs "LOSER" vs "DRAW" vs "PLAYING"
+What about "name"? OOP is more of an art than an exact science. This game is simple enough that a player doesn't need a name; we can easily distinguish players by their symbol.
+-   Methods:
+    -   writeInput(controller, action) // e.g. 'DRAW_SYMBOL'
+    -   Getters and setters for score, symbol, etc. Maybe Controller as well.
+    -   reset() // resets to default values
+
+
+Controller:
+represents the interface which a player uses to interact with the game.
+input is some event (e.g. keypress or virtual event) and output is a game action.
+-   Attributes:
+    -   controllerMap       // a data structure mapping hardware/software inputs to actions
+                            // e.g. {'Esc': EXIT_GAME, 'W': WRITE_SYMBOL, 'ArrowUp': UP, etc.}
+    -   inputBuffer         // buffers the input. Is this really necessary?
+-   Methods:
+    -   decodeInput(input)  // given an input, returns an action. NULL should be a possible action
+                            // for invalid inputs.
+    -   readInput()         // polls for keypress, mouse actions or whatever is supported
+One thing to understand about this abstraction is that it is the Player who provides an input, and the Controller generates a signal representing an "action". The GameProgram then updates necessary state based on the observed action.
+This may be overkill for Tic-Tac-Toe but some games require input to be configured arbitrarily - keyboard input, mouse input, gamepad input, etc can be supported.
+Related classes: ControllerMap, Input. Do not bother implementing these for such a small game. It's overkill. Bundle everything in the Controller class itself. The ControllerMap can just be a hard-coded data structure.
+
+
+Renderer:
+tells us how to draw the game, how to present it to the world.
+the job of the renderer is to observe the abstract program state (and other objects) and output visual information. 
+A general-purpose abstract renderer may be difficult to use. It's unavoidable that the implementation of the Renderer would depend on the specific game. You do not need GPU acceleration for a simple 2D game, so a Renderer providing GPU acceleration is a waste of resources.
+But if your game is visually-rich (especially 3D games), a Renderer that uses only CPU would be inadequate.
+For this game, I don't think an explicit Renderer class is necessary - it is small enough that the GameProgram itself can make explicit rendering calls.
+It's only after you've noticed repeated patterns of use (e.g. you notice you draw squares a lot) that you can put that functionality in a class of its own.
+To make things easy, just define a collection of functions instead of a specific class.
+
+
+AudioPlayer:
+similar to Renderer, but presents audio - soundtracks, sound effects, etc.
+
+
+GameProgram:
+this is the entity that runs the TicTacToe game. It presents the game to the player, it initializes and manages the state of objects, imposes higher-level concepts such as scoring, networking, etc.
+It depends on how complex you want things to be.
+Whenever you start a game like Legend of Zelda or Tekken, the first thing you come across is often an animation screen then a Menu. These are not technically the game itself - and if they are, you've been ripped off. Ask for your money back!
+The GameProgram is the orchestrator of all these objects - its coordinates them to ensure a smooth gaming experience.
+For this game, GameProgram implements state update of tic-tac-toe board, implements rendering and audio, verifies validity of state, implements controller mapping, resolves game actions, etc.
+It can be as simple or complex as you like: a simple GameProgram (I think GameManager is a better name) welcomes the user with a welcome screen (or message), allows them choose their symbol, presents a control interface to the user, renders and updates the game state continuously, and so on.
+When a player wins or there is a draw, it announces this and asks if they want to play again.
+If so, it initializes a new Tic-Tac-Toe game. If not, the program terminates.
+There's no need to implement menus, settings and all that stuff for now.
+Attributes? Methods?
+If this were a class, it would be a large one!
+It can simply be a standalone script that glues together everything else. It's only when you start noticing common patterns that you can begin defining a class.
+
+
+
+________________________________________________________________________
+WHAT IF I USE A GAME ENGINE?
+
+Most game engines require you to write scripts. Some support OOP, some don't.
+OOP is not mandatory (and is not always efficient), it's just more maintainable than scattering functions and data across different files.
+
+Depending on your game engine, the above design philosophy may not make much sense.
+Godot Engine for example (in my experience) tends to bundle visual appearance with conceptual model quite a lot. It is far more visual, far more graphical.
+The experience may be similar for Unity and Unreal. but why would you be making TicTacToe in Unreal Engine? That's like using a jet engine to light a candle.
+
+
+
+
+
