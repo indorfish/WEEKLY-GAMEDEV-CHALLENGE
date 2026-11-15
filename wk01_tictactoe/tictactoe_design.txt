@@ -87,6 +87,38 @@ It can simply be a standalone script that glues together everything else. It's o
 
 
 
+
+________________________________________________________________________
+GAME ACTIONS
+(For the controller)
+-   move up, move down, move left, move right: generic directional actions.
+-   select: generic selection action (cell, menu option, etc). Can be used to implement 'write symbol'
+-   preempt: generic pre-emption (exit, escape, etc)
+One possible controller mapping for keyboard:
+{
+    "KeyUp": MOVE_UP, "KeyDown": MOVE_DOWN,
+    "KeyLeft": MOVE_LEFT, "KeyRight": MOVE_RIGHT,
+    "Spacebar": SELECT,
+    "EscKey": PREEMPT
+}
+Thus, if the input buffer reads "KeyUp", then the MOVE_UP signal is dispatched.
+
+Mouse? A mouse has, by default, six button states {Left, Right, Middle}x{Up, Down} and "infinitely" many scroll wheel states. It's not actually infinite, but the scroll wheel is meant to model continuous analog control input.
+{
+    "ScrollUp": MOVE_UP, "ScrollDown": MOVE_DOWN,
+    mouseLeft(): MOVE_LEFT, mouseRight(): MOVE_RIGHT,
+    "leftClick": SELECT, doubleRightClick(): PREEMPT
+}
+The functions here indicate complicated sequence of actions e.g. mouseLeft() means sliding the mouse pointer to the left. This requires comparing present pointer position with previous pointer position, which is why it is a subroutine.
+
+Non-essential:
+-   write symbol: the Player writes their symbol on the board
+-   receive data: puts the system in a "read" state where it receives sequential data e.g. player name.
+-   accept data: leaves the data reading state and sets acknowledgement status.
+
+
+
+
 ________________________________________________________________________
 WHAT IF I USE A GAME ENGINE?
 

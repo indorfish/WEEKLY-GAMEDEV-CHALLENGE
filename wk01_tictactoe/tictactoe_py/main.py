@@ -1,6 +1,7 @@
 #!/usr/bin/env python3.10
 
 import TicTacToe as TTT
+import time
 
 
 """
@@ -19,7 +20,8 @@ EXIT_MESSAGE = """ Thank you for playing! """
 GAME_ACTIVE = True
 count = 0
 
-TicTacToe = TTT.TicTacToe();
+TicTacToe = TTT.TicTacToe()
+players = ["X", "O"]
 
 # make sure everything is set up right before inviting user to play
 print(GREETING)
@@ -32,13 +34,25 @@ GAME LOOP
 =========================================================
 """
 while (GAME_ACTIVE):
-    # code for state update. Note that this game may not need a clock, as it updates
-    # only when a player places a symbol
+    # request player 1 input
+    print(f"Current Player: {TicTacToe.currentSymbol}")
+    cellIndex_i = int(input("Which row? "))
+    cellIndex_j = int(input("Which column? "))
+    cellIndex = [cellIndex_i, cellIndex_j]
+    if TicTacToe.updateGame(cellIndex) == False:
+        print("Invalid index! (Each entry must be between 0, 1, 2)")
+        continue
+    elif TicTacToe.updateGame(cellIndex) == None:
+        print("Game Over.")
+        break
+
+    
+    # temporary
     count += 1
     if (count > 20):
         GAME_ACTIVE = False
 
-
+    time.sleep(0.1) # pauses for one second
 
 """
 =========================================================

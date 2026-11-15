@@ -3,6 +3,13 @@
 SYMBOLS = {"-": " ", "X": "X", "O": "O"}
 DEFAULT_BOARD_SIZE = 3  # 3-by-3
 WIN_STATES = {"PLAYING": 0, "WIN": 1, "DRAW": 2}
+# state outputs are important status signals for game update requests
+STATE_OUTPUTS = { \
+    "OCCUPIED": 0, \
+    "GAME_OVER": 1, \
+    "SUCCESSFUL_WRITE": 2, \
+    "INVALID_INPUT": 3 \
+}
 
 """
 validateSymbol
@@ -115,25 +122,25 @@ class TicTacToe:
     def updateGame(self, cellIndex):
         # if the WINNING_STATE is WIN or DRAW, then don't update anything.
         if self.winState != WIN_STATES["PLAYING"]:
-            # it shouldn't be the TTT object printing status.
-            print("Game Over.")
-            return None
-        # if the requested index is non-empty, return False
-        # otherwise continue by writing the symbol.
+            return STATE_OUTPUTS["GAME_OVER"]
+        # if the requested index is occupied, return report and update nothing.
         if self.board.readCell(cellIndex) != self.symbols["-"]:
             # it shouldn't be the TTT object printing status.
             print(f"Cell {cellIndex} currently occupied! Try another cell.")
-            return False
-        self.board.writeCell(cellIndex, self.currentSymbol)
+            return STATE_OUTPUTS["OCCUPIED"]
+        # otherwise 
+        s = self.board.writeCell(cellIndex, self.currentSymbol)
+        if not s:
+            return 
 
         # check if board has been placed in winning state. Update as needed
         self.winState = self.updatedWinningState()
-        if (self.winState == WIN_STATES["PLAYING"]:
+        if self.winState == WIN_STATES["PLAYING"]:
             # toggle the symbol. This is a core assumption of TTT
             self.toggleSymbol()
-            return True
+            return STATE_OUTPUTS["SUCCESSFUL"]
         # otherwise declare the winner (if any) and end the game
-        elif (self.winState == WIN_STATES["DRAW"]:
+        elif self.winState == WIN_STATES["DRAW"]:
             self.winningSymbol = self.symbols["-"]
             return None
         else:
@@ -223,3 +230,5 @@ class Board:
             raise ValueError
         board = [[initSymbol for i in range(sz)] for j in range(sz)]
         return board
+
+
