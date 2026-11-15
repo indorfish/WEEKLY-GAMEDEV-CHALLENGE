@@ -5,7 +5,7 @@
  * ============================================================ */
 
 // The one line to change if the assets folder path is wrong:
-const SPRITE_DIR = "../assets/sprites/";
+const SPRITE_DIR = "sprites/";
 
 const SPRITE_FILES = {
   X: "X_spritesheet.png",

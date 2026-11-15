@@ -1,0 +1,96 @@
+
+
+IDEATING WHACK-A-MOLE
+
+-   WAM started as a physical arcade game and is probably best played as a physical arcade game.
+It's a test of reflexes and skill!
+
+
+___________________________________________________________
+A MODEL OF WHACK-A-MOLE
+
+The Board:
+-   The playing board can be continuous or discrete.
+The discrete version is more true to the original and is what you'll find if you have a hardware version.
+What "discrete" means is that there is a fixed number of "holes" the moles can pop out of; these holes don't change position.
+"Continuous" in contrast comes mostly from virtual whack-a-mole. A "continuous" board means that the moles can pop out of *any* position in the 2D board, so you have to pay attention to the whole thing.
+Discrete is easier to implement.
+
+The Mole:
+-   WAM (apt name) is the first game where we have to start taking time seriously.
+Tic-Tac-Toe was a turn-based game that updated whenever a player sent input; timing was unnecessary except for purposes of presentation.
+WAM in contrast requires sufficiently precise timing to work.
+Assuming the discrete board, a mole can pop out of any hole randomly.
+Let's also assume, for simplicity, that the mole's "existence" in a hole is binary - the mole is either fully out or fully hidden at any given time.
+The arrival of a mole is a random event and for any given hole, the mole's time of arrival is a random variable.
+
+-   Moles pop up independently of each other, but to make the game playable we can restrict the maximum number of moles to maybe three at a time.
+
+-   Whenever a mole is out, the goal is to whack it of course! There's a limited time window for this. 
+
+-   Some games I played also popped out random objects from the holes like moles with hard hats and bombs. This is an interesting twist on the game - bombs can cause debuffs for example.
+
+Miscellaneous:
+-   This is the first game with a scoring system. The system is simple; the more moles you whack during the time limit the more points you get.
+We can probably implement point multipliers, combos, etc if we have the time.
+
+
+Initialization:
+-   Time limit
+-   Player data
+-   Random seed, mole behavior, etc.
+
+State update rules:
+-   Input is the Mallet action (move to some coordinate, hover or strike, etc.)
+-   At time t, Hole(k) has a chance of revealing a mole. If a mole is struck by the Mallet, add points to the player's score based on score update rules. In the case where decoys are implemented you can take away points or add debuffs to the player as you wish.
+
+
+Ending the game:
+-   The game ends when the timer runs out, or if the user preempts the game (Pause -> Main Menu).
+
+
+
+_____________________________________________________________________
+A VIEW OF WHACK-A-MOLE
+
+-   Make sure the entire board/playing field is within view.
+An overhead view works but it can look visually boring.
+
+-   For a minimum-viable-product, each mole can just be rendered as a cylinder or even a button.
+However, WAM is meant to be a fun game so get creative with your mole animations.
+Draw the moles mocking the player e.g. blowing a raspberry, snickering, etc.
+Add "BOING" cartoon sound effects whenever a mole gets whacked.
+
+-   You can even be metaphorical and turn this into one of those bueaty make-up games where the mole is facial moles.
+
+
+
+_____________________________________________________________________
+CONTROLLING WHACK-A-MOLE
+
+-   For discrete whack-a-mole, if there are N holes then the controller needs to be capable of providing a minimum of ceil(log2(N)) bits of data. With eight holes for example, 3 bits are sufficient for addressing each hole.
+This information is only relevant to anyone who wants to implement this game on a toaster.
+
+-   To make the play close to the real experience, control should be done with a mouse.
+The point of WAM is that you can only whack moles sequentially and you have to move your hands around a lot. A keypad kind of breaks that illusion (especially if you're a fast typer).
+So, let the mouse (or whatever analogous control) move to the mole's position and whack it.
+We can abstract the controller as a "Mallet".
+The position of the Mallet may be analog or discrete, but it should be able to access all the holes present. It's better to just clamp it to the existing hole coordinates.
+The Mallet can either hover above a mole or whack the mole.
+You can make things more interesting by varying the strength of the strike, but such isn't really possible with conventional control inputs.
+This can be treated as a debuff/buff though.
+
+
+
+________________________________________________________________________
+CONCEPTS
+
+-   Timing in games
+-   Points system
+-   Random Number Generation
+-   Random Events
+-   Random Variables e.g. Mole's time of arrival at Hole(k)
+
+
+
+
