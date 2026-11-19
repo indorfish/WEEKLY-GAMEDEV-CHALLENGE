@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cf71mdxbesb0j"]
+
+[ext_resource type="PackedScene" uid="uid://bjj5ykhw4guy7" path="res://Whack a Mole/scenes/mole/mole.tscn" id="1_0ks4v"]
+
+[node name="main" type="Node2D" unique_id=803617732]
+
+[node name="UI" type="MarginContainer" parent="." unique_id=267600505]
+offset_right = 512.0
+offset_bottom = 256.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI" unique_id=2084256850]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="mole" parent="." unique_id=1803196212 instance=ExtResource("1_0ks4v")]
+z_as_relative = false
+position = Vector2(203, 127)
+
+[node name="mole2" parent="." unique_id=2076006098 instance=ExtResource("1_0ks4v")]
+z_as_relative = false
+position = Vector2(326, 127)
+
+[node name="mole" parent="mole2" unique_id=782317022 instance=ExtResource("1_0ks4v")]
+z_as_relative = false
+position = Vector2(-123, -43)
+
+[node name="mole2" parent="mole2" unique_id=129744471 instance=ExtResource("1_0ks4v")]
+z_as_relative = false
+position = Vector2(0, -43)

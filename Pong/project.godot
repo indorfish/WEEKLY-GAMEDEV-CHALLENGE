@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Weekly-gamedev-challenge"
-run/main_scene="uid://dk5q7ocr0j6uo"
+run/main_scene="uid://cf71mdxbesb0j"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://pong/icon.svg"
 
@@ -28,7 +28,7 @@ window/stretch/mode="canvas_items"
 [editor]
 
 movie_writer/video_quality=1.0
-movie_writer/movie_file="C:/Users/HP/Documents/game projects/WEEKLY-GAMEDEV-CHALLENGE/Pong/recordings/Recording.avi"
+movie_writer/movie_file="C:/Users/HP/Documents/game projects/WEEKLY-GAMEDEV-CHALLENGE/Pong/Whack a Mole/footage/Recording.avi"
 
 [global_group]
 
@@ -74,6 +74,12 @@ down={
 jolt={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
+]
+}
+hit={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(305, 23),"global_position":Vector2(317, 83),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":90,"key_label":0,"unicode":122,"location":0,"echo":false,"script":null)
 ]
 }
 
