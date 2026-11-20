@@ -28,3 +28,7 @@ position = Vector2(-123, -43)
 [node name="mole2" parent="mole2" unique_id=129744471 instance=ExtResource("1_0ks4v")]
 z_as_relative = false
 position = Vector2(0, -43)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1335857425]
+position = Vector2(256, 128)
+zoom = Vector2(1.5, 1.5)

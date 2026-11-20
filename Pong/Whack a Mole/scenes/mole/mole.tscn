@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://bjj5ykhw4guy7"]
 
 [ext_resource type="Script" uid="uid://sav87d1lhk6f" path="res://Whack a Mole/scenes/mole/mole.gd" id="1_aewnq"]
-[ext_resource type="Texture2D" uid="uid://c2ybdnkjl5n1l" path="res://Whack a Mole/placeholder sprites/mole-Sheet.png" id="2_3yp07"]
+[ext_resource type="Texture2D" uid="uid://dwsnwsy15ngih" path="res://Whack a Mole/sprites/PopupPlain/PopupPlain sheet.png" id="2_aewnq"]
+[ext_resource type="Texture2D" uid="uid://bv3q07oiekx5l" path="res://Whack a Mole/sprites/Mound/frame_00000.png" id="3_btiar"]
+[ext_resource type="Texture2D" uid="uid://cp2fuuy0q0sji" path="res://Whack a Mole/sprites/Mound/frame_00001.png" id="4_lv22m"]
+[ext_resource type="Texture2D" uid="uid://cdow63p2lfka3" path="res://Whack a Mole/sprites/Mound/frame_00002.png" id="5_1nluv"]
+[ext_resource type="Texture2D" uid="uid://b1qevnywpbpip" path="res://Whack a Mole/sprites/Mound/frame_00003.png" id="6_54607"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8xc23"]
-size = Vector2(44, 23.013659)
+size = Vector2(44, 28.902557)
 
 [sub_resource type="Animation" id="Animation_aewnq"]
 length = 0.001
@@ -55,10 +59,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [2, 3, 4, 5]
+"values": [3, 2, 1, 5]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -79,10 +83,38 @@ tracks/2/path = NodePath("CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_btiar"]
+resource_name = "hit"
+length = 0.56666666
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.10000001, 0.2, 0.3, 0.40000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_3yp07"]
@@ -94,10 +126,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [5, 4, 3, 2, 1]
+"values": [4, 1, 3, 2]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -128,45 +160,29 @@ tracks/2/keys = {
 _data = {
 &"RESET": SubResource("Animation_aewnq"),
 &"down": SubResource("Animation_8xc23"),
+&"hit": SubResource("Animation_btiar"),
 &"up": SubResource("Animation_3yp07")
 }
 
-[sub_resource type="Animation" id="Animation_eyopf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.96, 0.96, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_btiar"]
-resource_name = "hit"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(4.415934, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lv22m"]
-_data = {
-&"RESET": SubResource("Animation_eyopf"),
-&"hit": SubResource("Animation_btiar")
-}
+[sub_resource type="SpriteFrames" id="SpriteFrames_rmuwx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_btiar")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lv22m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1nluv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_54607")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
 
 [node name="mole" type="Area2D" unique_id=1803196212]
 script = ExtResource("1_aewnq")
@@ -177,20 +193,33 @@ shape = SubResource("RectangleShape2D_8xc23")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=154597319]
-self_modulate = Color(1, 0.96, 0.96, 1)
-texture = ExtResource("2_3yp07")
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_aewnq")
 hframes = 6
+vframes = 3
 frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=218871432]
 libraries/ = SubResource("AnimationLibrary_8xc23")
 
-[node name="color modulator" type="AnimationPlayer" parent="." unique_id=596738726]
-libraries/ = SubResource("AnimationLibrary_lv22m")
+[node name="Mound" type="AnimatedSprite2D" parent="." unique_id=1971776445]
+scale = Vector2(0.12, 0.12)
+sprite_frames = SubResource("SpriteFrames_rmuwx")
+autoplay = "default"
+frame_progress = 0.18026963
 
-[node name="wait timer" type="Timer" parent="." unique_id=795986930]
+[node name="down_wait timer" type="Timer" parent="." unique_id=795986930]
+
+[node name="label" type="Label" parent="." unique_id=1893018643]
+offset_left = -18.0
+offset_top = -21.0
+offset_right = 22.0
+offset_bottom = -9.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="timeout" from="wait timer" to="." method="_on_wait_timer_timeout"]
+[connection signal="timeout" from="down_wait timer" to="." method="_on_down_wait_timer_timeout"]
+[connection signal="timeout" from="down_wait timer" to="." method="_on_wait_timer_timeout"]
